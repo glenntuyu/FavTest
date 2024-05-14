@@ -43,26 +43,33 @@ android {
 dependencies {
 
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.constraintLayout)
+
     //Navigation
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.androidx.navigation.ui)
 
+    //Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
 
-
+    //Retrofit
     implementation(libs.retrofit)
     implementation(libs.convertor.gson)
     implementation(libs.logging.interceptor)
 
+    //Coroutine
     implementation(libs.kotlinx.coroutine.core)
     implementation(libs.kotlinx.coroutine.android)
     testImplementation(libs.kotlinx.coroutine.test)
 
+    //Glide
     implementation(libs.glide)
+
+    //SwipeRefresh
     implementation(libs.swipeRefreshLayout)
 
     testImplementation(libs.junit)
