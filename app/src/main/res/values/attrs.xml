@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="typeface" format="enum">
+        <enum name="regular" value="0" />
+        <enum name="medium" value="1" />
+        <enum name="bold" value="2" />
+        <enum name="italic" value="3" />
+    </attr>
+
+    <declare-styleable name="TextFont">
+        <attr name="typeface" />
+    </declare-styleable>
+</resources>
