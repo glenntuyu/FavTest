@@ -33,7 +33,12 @@ class SearchFragment : Fragment() {
     }
 
     private fun prepareView() {
-
+        initToolbar()
     }
 
+    private fun initToolbar() {
+        (activity as MainActivity).let { activity ->
+            activity.supportActionBar?.title = getString(R.string.toolbar_title)
+        }
+    }
 }

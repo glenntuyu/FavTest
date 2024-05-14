@@ -1,6 +1,8 @@
 package com.fav.favtest.presentation
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         viewBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(viewBinding?.mainActivityToolbar)
 
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.main_fragment) as NavHostFragment? ?: return
@@ -33,6 +36,22 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.nav_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_filter -> setFilter()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setFilter() {
+
     }
 
     override fun onDestroy() {
