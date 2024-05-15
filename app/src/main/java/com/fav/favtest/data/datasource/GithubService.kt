@@ -15,7 +15,7 @@ import retrofit2.http.Query
  */
 interface GithubService {
 
-    @GET("search/users?s=followers&type=Users")
+    @GET("search/users?type=Users")
     suspend fun getUserList(
         @Query("q") query: String,
         @Query("page") page: Int,

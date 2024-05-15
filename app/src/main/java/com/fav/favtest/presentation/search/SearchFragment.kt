@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.fav.favtest.R
 import com.fav.favtest.databinding.FragmentSearchBinding
 import com.fav.favtest.presentation.MainActivity
@@ -29,21 +30,5 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        prepareView()
-        searchUser()
-    }
-
-    private fun prepareView() {
-        initToolbar()
-    }
-
-    private fun searchUser() {
-
-    }
-
-    private fun initToolbar() {
-        (activity as MainActivity).let { activity ->
-            activity.supportActionBar?.title = getString(R.string.toolbar_title)
-        }
     }
 }
