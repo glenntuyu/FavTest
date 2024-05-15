@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -117,13 +118,7 @@ class SearchFragment : Fragment(), UserCardListener {
         pagingData: Flow<PagingData<GithubUserModel>>,
         onScrollChanged: (SearchIntent.Scroll) -> Unit
     ) {
-        searchSwipeRefreshLayout.let {
-            it.isVerticalScrollBarEnabled = true
-            it.setOnRefreshListener {
-                adapter.refresh()
-            }
-        }
-//        searchRetryButton.setOnClickListener { adapter.retry() }
+        searchRetryButton.setOnClickListener { adapter.retry() }
         searchRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy != 0) onScrollChanged(SearchIntent.Scroll(currentQuery = uiState.value.query))
@@ -159,10 +154,10 @@ class SearchFragment : Fragment(), UserCardListener {
         lifecycleScope.launch {
             adapter.loadStateFlow.collect { loadState ->
                 val isListEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
-//                searchEmptyList.isVisible = isListEmpty
-//                searchRecyclerView.isVisible = !isListEmpty
-//                searchProgressBar.isVisible = loadState.source.refresh is LoadState.Loading
-//                searchRetryButton.isVisible = loadState.source.refresh is LoadState.Error
+                searchEmptyList.isVisible = isListEmpty
+                searchRecyclerView.isVisible = !isListEmpty
+                searchProgressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                searchRetryButton.isVisible = loadState.source.refresh is LoadState.Error
 
                 val errorState = loadState.source.append as? LoadState.Error
                     ?: loadState.source.prepend as? LoadState.Error

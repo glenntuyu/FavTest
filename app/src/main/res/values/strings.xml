@@ -5,4 +5,5 @@
     <string name="filter">Filter</string>
     <string name="user">User</string>
     <string name="user_url">https//github.com/user</string>
+    <string name="no_results">No results</string>
 </resources>

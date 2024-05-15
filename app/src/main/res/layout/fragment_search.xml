@@ -31,22 +31,46 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/search_swipe_refresh_layout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layoutManager="LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/search_input_layout"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:id="@+id/search_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/CustomButton"
+            android:id="@+id/search_retry_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView android:id="@+id/search_empty_list"
+            style="@style/TextAppearance.TextTitle3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/no_results"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/search_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_0"
-                app:layoutManager="LinearLayoutManager"/>
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
