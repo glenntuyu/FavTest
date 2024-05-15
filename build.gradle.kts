@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinKapt) apply false
     alias(libs.plugins.daggerHiltAndroid) apply false
     alias(libs.plugins.androidLibrary) apply false
+    alias(libs.plugins.safeargs) apply false
 }

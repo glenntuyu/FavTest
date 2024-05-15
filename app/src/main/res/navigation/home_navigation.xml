@@ -10,6 +10,29 @@
         android:name="com.fav.favtest.presentation.search.SearchFragment"
         android:label="@string/toolbar_title"
         tools:layout="@layout/fragment_search">
+        <argument
+            android:name="query"
+            app:argType="string"
+            android:defaultValue="qwe"/>
     </fragment>
+
+    <dialog
+        android:id="@+id/filter_dest"
+        android:name="com.fav.favtest.presentation.filter.FilterBottomSheetFragment"
+        android:label="@string/toolbar_title"
+        tools:layout="@layout/fragment_filter_bottom_sheet">
+        <argument
+            android:name="currentFilter"
+            app:argType="string"
+            android:defaultValue="all"/>
+        <action
+            android:id="@+id/go_to_favorite"
+            app:destination="@+id/favorite_dest">
+        </action>
+        <action
+            android:id="@+id/go_to_search"
+            app:destination="@+id/search_dest">
+        </action>
+    </dialog>
 
 </navigation>

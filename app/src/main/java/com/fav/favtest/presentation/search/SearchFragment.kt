@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.RecyclerView
@@ -42,9 +43,15 @@ class SearchFragment : Fragment(), UserCardListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        handleArgs()
         prepareView()
         bindState()
         startSearch()
+    }
+
+    private fun handleArgs() {
+        val safeArgs: SearchFragmentArgs by navArgs()
+        viewModel.setQuery(safeArgs.query)
     }
 
     private fun prepareView() {

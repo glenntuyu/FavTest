@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.jetbrainsKotlinKapt)
     alias(libs.plugins.daggerHiltAndroid)
+    alias(libs.plugins.safeargs)
 }
 
 android {
