@@ -1,10 +1,9 @@
 package com.fav.favtest.data.datasource
 
-import com.fav.favtest.data.model.MovieDetailModel
-import com.fav.favtest.data.model.TopRatedMoviesModel
+import com.fav.favtest.data.model.BaseListModel
+import com.fav.favtest.data.model.GithubUserModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -14,27 +13,28 @@ import retrofit2.http.Query
 /**
  * Created by glenntuyu on 14/05/2024.
  */
-interface MovieDataSource {
-    @GET("movie/top_rated")
-    suspend fun getTopRatedMovies(
-        @Query("page") page: Int,
-    ): TopRatedMoviesModel
+interface GithubService {
 
-    @GET("movie/{id}")
-    suspend fun getMovieDetail(
-        @Path("id") id: Int,
-    ): MovieDetailModel
+    @GET("search/users?s=followers&type=Users")
+    suspend fun getUserList(
+        @Query("q") query: String,
+        @Query("page") page: Int,
+        @Query("per_page") pageSize: Int,
+    ): BaseListModel
+
+    @GET("users/{username}")
+    suspend fun getUserDetail(
+        @Path("username") username: String
+    ): GithubUserModel
 
     companion object {
-        private const val BASE_URL = "https://api.themoviedb.org/3/"
-        const val MOVIE_POSTER_URL = "https://image.tmdb.org/t/p/w500"
+        private const val BASE_URL = "https://api.github.com/"
 
-        fun create(): MovieDataSource {
+        fun create(): GithubService {
             val logger = HttpLoggingInterceptor()
             logger.level = HttpLoggingInterceptor.Level.BASIC
 
             val client = OkHttpClient.Builder()
-                .addInterceptor(AuthInterceptor())
                 .addInterceptor(logger)
                 .build()
             return Retrofit.Builder()
@@ -42,7 +42,7 @@ interface MovieDataSource {
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(MovieDataSource::class.java)
+                .create(GithubService::class.java)
         }
     }
 }

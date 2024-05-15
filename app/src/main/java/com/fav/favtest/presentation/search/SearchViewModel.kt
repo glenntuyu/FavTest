@@ -1,7 +1,7 @@
 package com.fav.favtest.presentation.search
 
 import androidx.lifecycle.ViewModel
-import com.fav.favtest.domain.GetTopRatedMoviesUseCase
+import com.fav.favtest.domain.GetUserListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -10,7 +10,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-    private val getTopRatedMoviesUseCase: GetTopRatedMoviesUseCase,
+    private val getUserListUseCase: GetUserListUseCase,
 ): ViewModel() {
 
 }

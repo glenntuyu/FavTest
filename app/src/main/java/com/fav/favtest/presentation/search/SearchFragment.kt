@@ -30,10 +30,15 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         prepareView()
+        searchUser()
     }
 
     private fun prepareView() {
         initToolbar()
+    }
+
+    private fun searchUser() {
+
     }
 
     private fun initToolbar() {

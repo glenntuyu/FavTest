@@ -1,8 +1,8 @@
 package com.fav.favtest.di
 
-import com.fav.favtest.data.datasource.MovieDataSource
-import com.fav.favtest.data.repository.MovieRepository
-import com.fav.favtest.data.repository.MovieRepositoryImpl
+import com.fav.favtest.data.datasource.GithubService
+import com.fav.favtest.data.repository.GithubRepository
+import com.fav.favtest.data.repository.GithubRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,8 +17,8 @@ class RepositoryModule {
 
     @Provides
     internal fun provideRepository(
-        movieDataSource: MovieDataSource,
-    ): MovieRepository {
-        return MovieRepositoryImpl(movieDataSource)
+        githubService: GithubService,
+    ): GithubRepository {
+        return GithubRepositoryImpl(githubService)
     }
 }
