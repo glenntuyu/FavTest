@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.adapterdelegate)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity)
