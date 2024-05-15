@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:orientation="vertical"
+        android:onLongClick="@{() -> listener.onUserCardLongClicked(data)}"
         android:onClick="@{() -> listener.onUserCardClicked(data.login)}"
         app:cardCornerRadius="@dimen/dp_4"
         app:cardUseCompatPadding="true">

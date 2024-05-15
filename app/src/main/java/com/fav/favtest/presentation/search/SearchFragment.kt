@@ -5,6 +5,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -191,7 +193,30 @@ class SearchFragment : Fragment(), UserCardListener {
     }
 
     override fun onUserCardClicked(username: String) {
-//        val action = SearchFragmentDirections.moveToUserDetail(username)
-//        findNavController().navigate(action)
+        addToFavorite()
+    }
+
+    override fun onUserCardLongClicked(data: GithubUserModel): Boolean {
+        addToFavorite()
+        return true
+    }
+
+    private fun addToFavorite() {
+        val alert = AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.add_to_favorite))
+            .setMessage(getString(R.string.do_you_want_to_add_this_user_to_favorite))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                Toast.makeText(requireContext(), getString(R.string.added_to_favorite),
+                    Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton(getString(R.string.no)) { _, _ ->
+
+            }
+            .create()
+        alert.setOnShowListener {
+            alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+        }
+        alert.show()
     }
 }
