@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -193,7 +194,8 @@ class SearchFragment : Fragment(), UserCardListener {
     }
 
     override fun onUserCardClicked(username: String) {
-        addToFavorite()
+        val action = SearchFragmentDirections.moveToUserDetail(username)
+        findNavController().navigate(action)
     }
 
     override fun onUserCardLongClicked(data: GithubUserModel): Boolean {

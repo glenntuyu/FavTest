@@ -11,4 +11,8 @@
     <string name="do_you_want_to_add_this_user_to_favorite">Do you want to add this user to favorite?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="label_user_name">Name:</string>
+    <string name="label_user_url">Url:</string>
+    <string name="label_user_followers">Followers:</string>
+    <string name="label_user_following">Following:</string>
 </resources>

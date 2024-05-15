@@ -14,6 +14,24 @@
             android:name="query"
             app:argType="string"
             android:defaultValue="qwe"/>
+
+        <action
+            android:id="@+id/move_to_user_detail"
+            app:destination="@+id/user_detail_dest">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/user_detail_dest"
+        android:name="com.fav.favtest.presentation.detail.UserDetailFragment"
+        android:label="@string/toolbar_title"
+        tools:layout="@layout/fragment_user_detail">
+
+        <argument
+            android:name="username"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"/>
     </fragment>
 
     <dialog

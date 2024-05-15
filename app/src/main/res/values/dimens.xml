@@ -16,4 +16,5 @@
     <dimen name="dp_28">28dp</dimen>
     <dimen name="dp_32">32dp</dimen>
     <dimen name="dp_64">64dp</dimen>
+    <dimen name="dp_128">128dp</dimen>
 </resources>
