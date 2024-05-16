@@ -61,11 +61,11 @@ class FilterBottomSheetFragment: BottomSheetDialogFragment(), FilterBottomSheetL
     private fun observeViewModel() {
         viewModel.filterLiveData.observe(this) { type ->
             if (type == FAVORITE) {
-                val action = FilterBottomSheetFragmentDirections.goToFavorite()
+                val action = FilterBottomSheetFragmentDirections.moveToFavorite()
                 findNavController().navigate(action)
             }
             else {
-                val action = FilterBottomSheetFragmentDirections.goToSearch()
+                val action = FilterBottomSheetFragmentDirections.moveToSearch()
                 findNavController().navigate(action)
             }
         }

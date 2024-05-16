@@ -56,11 +56,11 @@
             app:argType="string"
             android:defaultValue="all"/>
         <action
-            android:id="@+id/go_to_favorite"
+            android:id="@+id/move_to_favorite"
             app:destination="@+id/favorite_dest">
         </action>
         <action
-            android:id="@+id/go_to_search"
+            android:id="@+id/move_to_search"
             app:destination="@+id/search_dest">
         </action>
     </dialog>
