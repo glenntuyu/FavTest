@@ -42,7 +42,6 @@ class FavoriteViewModel @Inject constructor(
     private fun onGetFavoriteUserListSuccess(list: List<UserDataView>) {
         clearListData()
         handleData(list)
-        addFavoriteUserListToListData(list)
         updateIsRefreshing(false)
         updateListLiveData()
     }
