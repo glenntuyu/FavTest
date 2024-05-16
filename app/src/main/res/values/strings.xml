@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">FavTest</string>
     <string name="toolbar_title">Github User</string>
+    <string name="favorite_title">Favorite User</string>
+    <string name="search_title">All User</string>
     <string name="search_hint">Search User</string>
     <string name="favorite_hint">Search Favorite User</string>
     <string name="filter">Filter</string>

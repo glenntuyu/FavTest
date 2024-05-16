@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/search_dest"
         android:name="com.fav.favtest.presentation.search.SearchFragment"
-        android:label="@string/toolbar_title"
+        android:label="@string/search_title"
         tools:layout="@layout/fragment_search">
         <argument
             android:name="query"
@@ -42,7 +42,7 @@
     <fragment
         android:id="@+id/favorite_dest"
         android:name="com.fav.favtest.presentation.favorite.FavoriteFragment"
-        android:label="@string/toolbar_title"
+        android:label="@string/favorite_title"
         tools:layout="@layout/fragment_favorite">
 
         <action
