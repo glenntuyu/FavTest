@@ -10,6 +10,7 @@ import androidx.paging.cachedIn
 import com.fav.favtest.data.model.GithubUserModel
 import com.fav.favtest.data.model.UserDataView
 import com.fav.favtest.domain.AddUserToFavoriteUseCase
+import com.fav.favtest.domain.GetFavoriteUserDetailUseCase
 import com.fav.favtest.domain.GetUserListUseCase
 import com.fav.favtest.presentation.search.intent.SearchIntent
 import com.fav.favtest.presentation.search.state.SearchState
@@ -29,6 +30,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val getUserListUseCase: GetUserListUseCase,
     private val addUserToFavoriteUseCase: AddUserToFavoriteUseCase,
+    private val getFavoriteUserDetailUseCase: GetFavoriteUserDetailUseCase,
     private val savedStateHandle: SavedStateHandle,
 ): ViewModel() {
 
@@ -113,16 +115,25 @@ class SearchViewModel @Inject constructor(
     }
 
     fun addToFavorite(data: GithubUserModel) {
-        val dataView = data.toUserDataView()
-        addUserToFavoriteUseCase.execute(
-            { addUserToFavoriteSuccess() },
-            ::addUserToFavoriteFailed,
-            dataView
+        isUserFavorite(data)
+    }
+
+    private fun isUserFavorite(data: GithubUserModel) {
+        getFavoriteUserDetailUseCase.execute(
+            { isUserFavoriteSuccess(it.login, data) },
+            ::throwMessageOnFailed,
+            data.login
         )
     }
 
-    private fun addUserToFavoriteSuccess() {
-        toastMessageMutableLiveData.value = Constant.ADDED_TO_FAVORITE
+    private fun isUserFavoriteSuccess(login: String?, data: GithubUserModel) {
+        if (login.isNullOrEmpty()) {
+            val dataView = data.toUserDataView()
+            addUserToFavorite(dataView)
+        }
+        else {
+            throwErrorMessage(Constant.USER_IS_ALREADY_IN_FAVORITE)
+        }
     }
 
     private fun GithubUserModel.toUserDataView(): UserDataView {
@@ -134,8 +145,23 @@ class SearchViewModel @Inject constructor(
         )
     }
 
-    private fun addUserToFavoriteFailed(throwable: Throwable) {
-        toastMessageMutableLiveData.value = throwable.message
+    private fun addUserToFavorite(dataView: UserDataView) {
+        addUserToFavoriteUseCase.execute(
+            { addUserToFavoriteSuccess() },
+            ::throwMessageOnFailed,
+            dataView
+        )
     }
 
+    private fun addUserToFavoriteSuccess() {
+        throwErrorMessage(Constant.ADDED_TO_FAVORITE)
+    }
+
+    private fun throwMessageOnFailed(throwable: Throwable) {
+        throwable.message?.let { throwErrorMessage(it) }
+    }
+
+    private fun throwErrorMessage(message: String) {
+        toastMessageMutableLiveData.value = message
+    }
 }
