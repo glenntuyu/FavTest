@@ -17,9 +17,9 @@ interface FavoriteUserDao {
     suspend fun addUser(user: UserDataView)
 
     @Query(
-        "SELECT * FROM favoriteUsers"
+        "SELECT * FROM favoriteUsers WHERE login LIKE :query"
     )
-    suspend fun getUserList(): List<UserDataView>
+    suspend fun getUserList(query: String): List<UserDataView>
 
     @Query("SELECT * FROM favoriteUsers WHERE login = :username")
     suspend fun getUserDetail(username: String): UserDataView?

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.fav.adapterdelegate.common.error.ErrorDataView
 import com.fav.favtest.data.model.UserDataView
 import com.fav.favtest.domain.GetFavoriteUserListUseCase
+import com.fav.favtest.util.toRoomQuery
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -31,11 +32,11 @@ class FavoriteViewModel @Inject constructor(
     private val isRefreshingMutableLiveData = MutableLiveData(false)
     val isRefreshingLiveData: LiveData<Boolean> = isRefreshingMutableLiveData
 
-    fun getFavoriteUserList() {
+    fun getFavoriteUserList(query: String = "") {
         favoriteUserListUseCase.execute(
             ::onGetFavoriteUserListSuccess,
             ::onGetFavoriteUserListFailed,
-            ""
+            query.toRoomQuery()
         )
     }
 

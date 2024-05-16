@@ -10,7 +10,7 @@ class FavoriteUserRepositoryImpl(
     private val favoriteUserDatabase: FavoriteUserDatabase,
 ): FavoriteUserRepository {
     override suspend fun getFavoriteUserList(query: String): List<UserDataView> {
-        return favoriteUserDatabase.favoriteUsersDao().getUserList()
+        return favoriteUserDatabase.favoriteUsersDao().getUserList(query)
     }
 
     override suspend fun getUserDetail(username: String): UserDataView {
