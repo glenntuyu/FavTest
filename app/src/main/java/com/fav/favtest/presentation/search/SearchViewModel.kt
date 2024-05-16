@@ -12,6 +12,7 @@ import com.fav.favtest.data.model.UserDataView
 import com.fav.favtest.domain.AddUserToFavoriteUseCase
 import com.fav.favtest.domain.GetFavoriteUserDetailUseCase
 import com.fav.favtest.domain.GetUserListUseCase
+import com.fav.favtest.domain.RemoveUserFromFavoriteUseCase
 import com.fav.favtest.presentation.search.intent.SearchIntent
 import com.fav.favtest.presentation.search.state.SearchState
 import com.fav.favtest.util.Constant
@@ -28,14 +29,18 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class SearchViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val getUserListUseCase: GetUserListUseCase,
     private val addUserToFavoriteUseCase: AddUserToFavoriteUseCase,
     private val getFavoriteUserDetailUseCase: GetFavoriteUserDetailUseCase,
-    private val savedStateHandle: SavedStateHandle,
+    private val removeUserFromFavoriteUseCase: RemoveUserFromFavoriteUseCase,
 ): ViewModel() {
 
     private val toastMessageMutableLiveData = MutableLiveData<String>()
     val toastMessageLiveData: LiveData<String> = toastMessageMutableLiveData
+
+    private val isUserFavoriteMutableLiveData = MutableLiveData<Pair<Boolean, UserDataView>>()
+    val isUserFavoriteLiveData: LiveData<Pair<Boolean, UserDataView>> = isUserFavoriteMutableLiveData
 
     private var initialQuery = savedStateHandle[LAST_SEARCH_QUERY] ?: DEFAULT_QUERY
     val state: StateFlow<SearchState>
@@ -114,7 +119,7 @@ class SearchViewModel @Inject constructor(
         savedStateHandle[LAST_QUERY_SCROLLED] = state.value.lastQueryScrolled
     }
 
-    fun addToFavorite(data: GithubUserModel) {
+    fun checkFavorite(data: GithubUserModel) {
         isUserFavorite(data)
     }
 
@@ -127,13 +132,10 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun isUserFavoriteSuccess(login: String?, data: GithubUserModel) {
-        if (login.isNullOrEmpty()) {
-            val dataView = data.toUserDataView()
-            addUserToFavorite(dataView)
-        }
-        else {
-            throwErrorMessage(Constant.USER_IS_ALREADY_IN_FAVORITE)
-        }
+        val dataView = data.toUserDataView()
+        val isFavorite = !login.isNullOrEmpty()
+
+        isUserFavoriteMutableLiveData.value = Pair(isFavorite, dataView)
     }
 
     private fun GithubUserModel.toUserDataView(): UserDataView {
@@ -145,11 +147,19 @@ class SearchViewModel @Inject constructor(
         )
     }
 
-    private fun addUserToFavorite(dataView: UserDataView) {
+    private fun throwMessageOnFailed(throwable: Throwable) {
+        throwable.message?.let { throwErrorMessage(it) }
+    }
+
+    private fun throwErrorMessage(message: String) {
+        toastMessageMutableLiveData.value = message
+    }
+
+    fun addToFavorite(data: UserDataView) {
         addUserToFavoriteUseCase.execute(
             { addUserToFavoriteSuccess() },
             ::throwMessageOnFailed,
-            dataView
+            data
         )
     }
 
@@ -157,11 +167,15 @@ class SearchViewModel @Inject constructor(
         throwErrorMessage(Constant.ADDED_TO_FAVORITE)
     }
 
-    private fun throwMessageOnFailed(throwable: Throwable) {
-        throwable.message?.let { throwErrorMessage(it) }
+    fun removeFromFavorite(data: UserDataView) {
+        removeUserFromFavoriteUseCase.execute(
+            { removeFromFavoriteSuccess() },
+            ::throwMessageOnFailed,
+            data
+        )
     }
 
-    private fun throwErrorMessage(message: String) {
-        toastMessageMutableLiveData.value = message
+    private fun removeFromFavoriteSuccess() {
+        throwErrorMessage(Constant.REMOVED_FROM_FAVORITE)
     }
 }

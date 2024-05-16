@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fav.adapterdelegate.loadstate.LoadStateAdapter
 import com.fav.favtest.R
 import com.fav.favtest.data.model.GithubUserModel
+import com.fav.favtest.data.model.UserDataView
 import com.fav.favtest.databinding.FragmentSearchBinding
 import com.fav.favtest.presentation.search.intent.SearchIntent
 import com.fav.favtest.presentation.search.state.SearchState
@@ -62,6 +63,7 @@ class SearchFragment : Fragment(), UserCardListener {
 
     private fun observeViewModel() {
         viewModel.toastMessageLiveData.observe(this::toastMessage)
+        viewModel.isUserFavoriteLiveData.observe(this::isUserFavorite)
     }
 
     private fun <T> LiveData<T>.observe(observer: Observer<in T>) {
@@ -74,6 +76,53 @@ class SearchFragment : Fragment(), UserCardListener {
             message,
             Toast.LENGTH_LONG,
         ).show()
+    }
+
+    private fun isUserFavorite(data: Pair<Boolean, UserDataView>) {
+        val isFavorite = data.first
+        val dataView = data.second
+
+        if (isFavorite && !dataView.login.isNullOrEmpty()) {
+            removeFromFavorite(dataView)
+        } else {
+            addToFavorite(dataView)
+        }
+    }
+
+    private fun removeFromFavorite(data: UserDataView) {
+        val alert = AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.remove_from_favorite))
+            .setMessage(getString(R.string.do_you_want_to_remove_this_user_from_favorite))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.removeFromFavorite(data)
+            }
+            .setNegativeButton(getString(R.string.no)) { _, _ ->
+
+            }
+            .create()
+        alert.setOnShowListener {
+            alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
+        }
+        alert.show()
+    }
+
+    private fun addToFavorite(data: UserDataView) {
+        val alert = AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.add_to_favorite))
+            .setMessage(getString(R.string.do_you_want_to_add_this_user_to_favorite))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                viewModel.addToFavorite(data)
+            }
+            .setNegativeButton(getString(R.string.no)) { _, _ ->
+
+            }
+            .create()
+        alert.setOnShowListener {
+            alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+        }
+        alert.show()
     }
 
     private fun prepareView() {
@@ -218,25 +267,11 @@ class SearchFragment : Fragment(), UserCardListener {
     }
 
     override fun onUserCardLongClicked(data: GithubUserModel): Boolean {
-        addToFavorite(data)
+        checkFavorite(data)
         return true
     }
 
-    private fun addToFavorite(data: GithubUserModel) {
-        val alert = AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.add_to_favorite))
-            .setMessage(getString(R.string.do_you_want_to_add_this_user_to_favorite))
-            .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                viewModel.addToFavorite(data)
-            }
-            .setNegativeButton(getString(R.string.no)) { _, _ ->
-
-            }
-            .create()
-        alert.setOnShowListener {
-            alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.red));
-            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
-        }
-        alert.show()
+    private fun checkFavorite(data: GithubUserModel) {
+        viewModel.checkFavorite(data)
     }
 }

@@ -8,7 +8,9 @@
     <string name="user_url">https//github.com/user</string>
     <string name="no_results">No results</string>
     <string name="add_to_favorite">Add to Favorite</string>
+    <string name="remove_from_favorite">Remove from Favorite</string>
     <string name="do_you_want_to_add_this_user_to_favorite">Do you want to add this user to favorite?</string>
+    <string name="do_you_want_to_remove_this_user_from_favorite">Do you want to remove this user from favorite?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="label_user_name">Name:</string>

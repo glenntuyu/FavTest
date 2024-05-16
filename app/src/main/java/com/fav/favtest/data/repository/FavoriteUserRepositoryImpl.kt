@@ -20,4 +20,8 @@ class FavoriteUserRepositoryImpl(
     override suspend fun addUserToFavorite(user: UserDataView) {
         return favoriteUserDatabase.favoriteUsersDao().addUser(user)
     }
+
+    override suspend fun removeUserFromFavorite(user: UserDataView) {
+        return favoriteUserDatabase.favoriteUsersDao().deleteUser(user)
+    }
 }
