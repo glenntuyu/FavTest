@@ -39,6 +39,11 @@
         android:name="com.fav.favtest.presentation.favorite.FavoriteFragment"
         android:label="@string/toolbar_title"
         tools:layout="@layout/fragment_favorite">
+
+        <action
+            android:id="@+id/move_to_user_detail"
+            app:destination="@+id/user_detail_dest">
+        </action>
     </fragment>
 
     <dialog

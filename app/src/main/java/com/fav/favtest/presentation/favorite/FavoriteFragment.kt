@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fav.favtest.R
 import com.fav.favtest.databinding.FragmentFavoriteBinding
 import com.fav.favtest.presentation.favorite.view.FavoriteUserCardListener
+import com.fav.favtest.presentation.search.SearchFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -83,6 +85,7 @@ class FavoriteFragment : Fragment(), FavoriteUserCardListener {
     }
 
     override fun onFavoriteUserCardClicked(username: String) {
-
+        val action = FavoriteFragmentDirections.moveToUserDetail(username)
+        findNavController().navigate(action)
     }
 }
