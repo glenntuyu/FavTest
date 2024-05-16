@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fav.favtest.data.model.GithubUserModel
 import com.fav.favtest.domain.GetUserDetailUseCase
+import com.fav.favtest.util.Constant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -12,10 +13,6 @@ import javax.inject.Inject
 class UserDetailViewModel @Inject constructor(
     private val getUserDetailUseCase: GetUserDetailUseCase
 ): ViewModel() {
-
-    companion object {
-        private const val ERROR_MESSAGE_USERNAME_IS_EMPTY = "\uD83D\uDE28 Wooops Username is empty"
-    }
 
     private val onGetUserDetailMutableLiveData = MutableLiveData<UserDetailDataView>()
     val onGetUserDetailLiveData: LiveData<UserDetailDataView> = onGetUserDetailMutableLiveData
@@ -31,7 +28,7 @@ class UserDetailViewModel @Inject constructor(
                 username
             )
         } ?: run {
-            onThrowMessageMutableLiveData.value = ERROR_MESSAGE_USERNAME_IS_EMPTY
+            onThrowMessageMutableLiveData.value = Constant.ERROR_MESSAGE_USERNAME_IS_EMPTY
         }
     }
 

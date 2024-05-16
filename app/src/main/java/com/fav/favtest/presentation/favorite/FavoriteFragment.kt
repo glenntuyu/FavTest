@@ -80,6 +80,7 @@ class FavoriteFragment : Fragment(), FavoriteUserCardListener, FilterListener {
     private fun prepareView() {
         initEditText()
         initRecyclerView()
+        initSwipeRefreshLayout()
     }
 
     private fun initEditText() {
@@ -121,6 +122,19 @@ class FavoriteFragment : Fragment(), FavoriteUserCardListener, FilterListener {
             adapter = FavoriteAdapter(this)
             rv.adapter = adapter
         }
+    }
+
+    private fun initSwipeRefreshLayout() {
+        viewBinding?.favoriteSwipeRefreshLayout?.let {
+            it.isVerticalScrollBarEnabled = true
+            it.setOnRefreshListener {
+                refreshView()
+            }
+        }
+    }
+
+    private fun refreshView() {
+        viewModel.refreshFavoriteUserList()
     }
 
     private fun getFavoriteUserList() {

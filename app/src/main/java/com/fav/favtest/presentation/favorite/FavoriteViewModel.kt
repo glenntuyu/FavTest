@@ -19,6 +19,7 @@ class FavoriteViewModel @Inject constructor(
 ): ViewModel() {
 
     private val listData = mutableListOf<Any>()
+    private var query = ""
 
     private val listMutableLiveData = MutableLiveData<List<Any>>()
     val listLiveData: LiveData<List<Any>>
@@ -28,10 +29,11 @@ class FavoriteViewModel @Inject constructor(
     val isRefreshingLiveData: LiveData<Boolean> = isRefreshingMutableLiveData
 
     fun getFavoriteUserList(query: String = "") {
+        this.query = query
         favoriteUserListUseCase.execute(
             ::onGetFavoriteUserListSuccess,
             ::onGetFavoriteUserListFailed,
-            query
+            this.query
         )
     }
 
@@ -76,5 +78,16 @@ class FavoriteViewModel @Inject constructor(
 
     private fun setErrorNetwork() {
         listData.add(ErrorDataView(Constant.ERROR_NETWORK))
+    }
+
+    fun refreshFavoriteUserList() {
+        resetState()
+        updateListLiveData()
+        updateIsRefreshing(true)
+        getFavoriteUserList(query)
+    }
+
+    private fun resetState() {
+        clearListData()
     }
 }

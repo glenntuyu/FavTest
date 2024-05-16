@@ -16,4 +16,5 @@ object Constant {
     const val REMOVED_FROM_FAVORITE: String = "Removed from Favorite"
     const val NO_DATA = "No Data"
     const val ERROR_NETWORK = "Error Network"
+    const val ERROR_MESSAGE_USERNAME_IS_EMPTY = "\uD83D\uDE28 Wooops Username is empty"
 }
