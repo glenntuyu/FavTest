@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -37,9 +38,14 @@ class FavoriteFragment : Fragment(), FavoriteUserCardListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        hideBackButton()
         observeViewModel()
         prepareView()
         getFavoriteUserList()
+    }
+
+    private fun hideBackButton() {
+        (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
     private fun observeViewModel() {
