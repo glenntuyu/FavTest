@@ -11,6 +11,8 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -47,6 +49,7 @@ class SearchFragment : Fragment(), UserCardListener {
         super.onViewCreated(view, savedInstanceState)
 
         handleArgs()
+        observeViewModel()
         prepareView()
         bindState()
         startSearch()
@@ -55,6 +58,22 @@ class SearchFragment : Fragment(), UserCardListener {
     private fun handleArgs() {
         val safeArgs: SearchFragmentArgs by navArgs()
         viewModel.setQuery(safeArgs.query)
+    }
+
+    private fun observeViewModel() {
+        viewModel.toastMessageLiveData.observe(this::toastMessage)
+    }
+
+    private fun <T> LiveData<T>.observe(observer: Observer<in T>) {
+        observe(viewLifecycleOwner, observer)
+    }
+
+    private fun toastMessage(message: String) {
+        Toast.makeText(
+            requireContext(),
+            message,
+            Toast.LENGTH_LONG,
+        ).show()
     }
 
     private fun prepareView() {
@@ -199,17 +218,16 @@ class SearchFragment : Fragment(), UserCardListener {
     }
 
     override fun onUserCardLongClicked(data: GithubUserModel): Boolean {
-        addToFavorite()
+        addToFavorite(data)
         return true
     }
 
-    private fun addToFavorite() {
+    private fun addToFavorite(data: GithubUserModel) {
         val alert = AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.add_to_favorite))
             .setMessage(getString(R.string.do_you_want_to_add_this_user_to_favorite))
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                Toast.makeText(requireContext(), getString(R.string.added_to_favorite),
-                    Toast.LENGTH_SHORT).show()
+                viewModel.addToFavorite(data)
             }
             .setNegativeButton(getString(R.string.no)) { _, _ ->
 

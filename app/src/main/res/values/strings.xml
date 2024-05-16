@@ -2,12 +2,12 @@
     <string name="app_name">FavTest</string>
     <string name="toolbar_title">Github User</string>
     <string name="search_hint">Search User</string>
+    <string name="favorite_hint">Search Favorite User</string>
     <string name="filter">Filter</string>
     <string name="user">User</string>
     <string name="user_url">https//github.com/user</string>
     <string name="no_results">No results</string>
     <string name="add_to_favorite">Add to Favorite</string>
-    <string name="added_to_favorite">Added to Favorite</string>
     <string name="do_you_want_to_add_this_user_to_favorite">Do you want to add this user to favorite?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>

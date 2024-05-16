@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.fav.favtest.data.model.UserDataView" />
+
+        <variable
+            name="listener"
+            type="com.fav.favtest.presentation.favorite.view.FavoriteUserCardListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/user_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:onClick="@{() -> listener.onFavoriteUserCardClicked(data.login)}"
+        app:cardCornerRadius="@dimen/dp_4"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/userItemLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/user_icon"
+                android:layout_width="@dimen/dp_64"
+                android:layout_height="@dimen/dp_64"
+                android:layout_marginStart="@dimen/dp_8"
+                app:glideUrl="@{data.avatarUrl}"
+                app:glideCornerRadius="@{6}"
+                app:srcCompat="@drawable/ic_account"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextAppearance.TextTitle4"
+                android:id="@+id/user_name"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:hint="@string/user"
+                android:maxLines="1"
+                android:showTextIfNotEmpty="@{data.login}"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/user_icon"
+                app:layout_constraintTop_toTopOf="@id/user_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/user_url"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextAppearance.TextCaption"
+                android:id="@+id/user_url"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:layout_marginBottom="@dimen/dp_8"
+                android:padding="@dimen/dp_8"
+                android:hint="@string/user_url"
+                android:maxLines="1"
+                android:background="@drawable/text_background"
+                android:showTextIfNotEmpty="@{data.htmlUrl}"
+                app:layout_constraintStart_toEndOf="@id/user_icon"
+                app:layout_constraintTop_toBottomOf="@id/user_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/user_icon"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        
+    </androidx.cardview.widget.CardView>
+</layout>

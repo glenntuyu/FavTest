@@ -2,6 +2,7 @@ package com.fav.adapterdelegate
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fav.adapterdelegate.common.error.ErrorAdapterDelegate
 import com.fav.adapterdelegate.common.loadingmore.LoadingMoreAdapterDelegate
 import com.fav.adapterdelegate.common.loadingmore.LoadingMoreDataView
 import com.fav.adapterdelegate.common.loadingpage.LoadingPageAdapterDelegate
@@ -27,6 +28,7 @@ open class BaseCommonAdapter(isFlexibleType: Boolean = false) :
         delegatesManager
             .addDelegate(LoadingMoreAdapterDelegate())
             .addDelegate(LoadingPageAdapterDelegate())
+            .addDelegate(ErrorAdapterDelegate())
     }
 
     override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {

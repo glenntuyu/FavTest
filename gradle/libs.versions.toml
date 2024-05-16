@@ -12,17 +12,22 @@ hilt = "2.42"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 kotlin = "1.7.0"
+ksp = "1.7.0-1.0.6"
 loggingInterceptor = "4.9.1"
 material = "1.12.0"
 mockk = "1.10.6"
 navigation = "2.7.7"
 retrofit = "2.9.0"
+room = "2.4.0"
 safeargs = "2.4.2"
 swipeRefresh = "1.1.0"
 paging = "3.1.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -61,4 +66,5 @@ jetbrainsKotlinKapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin"
 daggerHiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 

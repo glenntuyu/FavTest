@@ -1,12 +1,20 @@
-package com.fav.adapterdelegate.binding
+package com.fav.adapterdelegate.util
 
 import android.view.View
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 
 /**
  * Created by glenntuyu on 15/05/2024.
  */
-object ViewBinding {
+object ViewBindings {
+
+    @BindingAdapter("android:showTextIfNotEmpty")
+    @JvmStatic
+    fun showTextIfNotEmpty(textView: TextView, text: String?) {
+        textView.setTextAndCheckShow(text)
+    }
+
     @BindingAdapter("app:shouldShowView")
     @JvmStatic
     fun shouldShowView(view: View, visible: Boolean) {

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinKapt)
     alias(libs.plugins.daggerHiltAndroid)
     alias(libs.plugins.safeargs)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -77,6 +78,11 @@ dependencies {
 
     //SwipeRefresh
     implementation(libs.swipeRefreshLayout)
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)

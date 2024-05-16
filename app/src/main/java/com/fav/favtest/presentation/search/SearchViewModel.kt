@@ -1,14 +1,19 @@
 package com.fav.favtest.presentation.search
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.fav.favtest.data.model.GithubUserModel
+import com.fav.favtest.data.model.UserDataView
+import com.fav.favtest.domain.AddUserToFavoriteUseCase
 import com.fav.favtest.domain.GetUserListUseCase
 import com.fav.favtest.presentation.search.intent.SearchIntent
 import com.fav.favtest.presentation.search.state.SearchState
+import com.fav.favtest.util.Constant
 import com.fav.favtest.util.Constant.DEFAULT_QUERY
 import com.fav.favtest.util.Constant.LAST_QUERY_SCROLLED
 import com.fav.favtest.util.Constant.LAST_SEARCH_QUERY
@@ -23,8 +28,12 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val getUserListUseCase: GetUserListUseCase,
+    private val addUserToFavoriteUseCase: AddUserToFavoriteUseCase,
     private val savedStateHandle: SavedStateHandle,
 ): ViewModel() {
+
+    private val toastMessageMutableLiveData = MutableLiveData<String>()
+    val toastMessageLiveData: LiveData<String> = toastMessageMutableLiveData
 
     private var initialQuery = savedStateHandle[LAST_SEARCH_QUERY] ?: DEFAULT_QUERY
     val state: StateFlow<SearchState>
@@ -101,6 +110,32 @@ class SearchViewModel @Inject constructor(
     private fun setLastSearchQuery() {
         savedStateHandle[LAST_SEARCH_QUERY] = state.value.query
         savedStateHandle[LAST_QUERY_SCROLLED] = state.value.lastQueryScrolled
+    }
+
+    fun addToFavorite(data: GithubUserModel) {
+        val dataView = data.toUserDataView()
+        addUserToFavoriteUseCase.execute(
+            { addUserToFavoriteSuccess() },
+            ::addUserToFavoriteFailed,
+            dataView
+        )
+    }
+
+    private fun addUserToFavoriteSuccess() {
+        toastMessageMutableLiveData.value = Constant.ADDED_TO_FAVORITE
+    }
+
+    private fun GithubUserModel.toUserDataView(): UserDataView {
+        return UserDataView(
+            id = id,
+            login = login,
+            avatarUrl = avatarUrl,
+            htmlUrl = htmlUrl,
+        )
+    }
+
+    private fun addUserToFavoriteFailed(throwable: Throwable) {
+        toastMessageMutableLiveData.value = throwable.message
     }
 
 }

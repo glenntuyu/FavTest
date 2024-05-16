@@ -12,4 +12,6 @@ object Constant {
     const val ALL: String = "all"
     const val LAST_QUERY_SCROLLED: String = "last_query_scrolled"
     const val LAST_SEARCH_QUERY: String = "last_search_query"
+    const val ADDED_TO_FAVORITE: String = "Added to Favorite"
+    const val ADD_TO_FAVORITE_FAILED: String = "Add to Favorite Failed"
 }

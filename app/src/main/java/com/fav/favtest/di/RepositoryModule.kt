@@ -1,6 +1,9 @@
 package com.fav.favtest.di
 
+import com.fav.favtest.data.datasource.FavoriteUserDatabase
 import com.fav.favtest.data.datasource.GithubService
+import com.fav.favtest.data.repository.FavoriteUserRepository
+import com.fav.favtest.data.repository.FavoriteUserRepositoryImpl
 import com.fav.favtest.data.repository.GithubRepository
 import com.fav.favtest.data.repository.GithubRepositoryImpl
 import dagger.Module
@@ -20,5 +23,12 @@ class RepositoryModule {
         githubService: GithubService,
     ): GithubRepository {
         return GithubRepositoryImpl(githubService)
+    }
+
+    @Provides
+    internal fun provideFavoriteUserRepository(
+        favoriteUserDatabase: FavoriteUserDatabase,
+    ): FavoriteUserRepository {
+        return FavoriteUserRepositoryImpl(favoriteUserDatabase)
     }
 }
