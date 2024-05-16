@@ -15,4 +15,6 @@ object Constant {
     const val ADDED_TO_FAVORITE: String = "Added to Favorite"
     const val USER_IS_ALREADY_IN_FAVORITE: String = "User is already in Favorite"
     const val ADD_TO_FAVORITE_FAILED: String = "Add to Favorite Failed"
+    const val NO_DATA = "No Data"
+    const val ERROR_NETWORK = "Error Network"
 }

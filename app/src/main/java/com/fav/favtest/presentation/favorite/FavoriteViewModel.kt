@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.fav.adapterdelegate.common.error.ErrorDataView
 import com.fav.favtest.data.model.UserDataView
 import com.fav.favtest.domain.GetFavoriteUserListUseCase
-import com.fav.favtest.util.toRoomQuery
+import com.fav.favtest.util.Constant
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,11 +17,6 @@ import javax.inject.Inject
 class FavoriteViewModel @Inject constructor(
     private val favoriteUserListUseCase: GetFavoriteUserListUseCase,
 ): ViewModel() {
-
-    companion object {
-        const val NO_DATA = "No Data"
-        const val ERROR_NETWORK = "Error Network"
-    }
 
     private val listData = mutableListOf<Any>()
 
@@ -36,7 +31,7 @@ class FavoriteViewModel @Inject constructor(
         favoriteUserListUseCase.execute(
             ::onGetFavoriteUserListSuccess,
             ::onGetFavoriteUserListFailed,
-            query.toRoomQuery()
+            query
         )
     }
 
@@ -57,7 +52,7 @@ class FavoriteViewModel @Inject constructor(
     }
 
     private fun showEmptyState() {
-        listData.add(ErrorDataView(NO_DATA))
+        listData.add(ErrorDataView(Constant.NO_DATA))
     }
 
     private fun addFavoriteUserListToListData(list: List<UserDataView>) {
@@ -80,6 +75,6 @@ class FavoriteViewModel @Inject constructor(
     }
 
     private fun setErrorNetwork() {
-        listData.add(ErrorDataView(ERROR_NETWORK))
+        listData.add(ErrorDataView(Constant.ERROR_NETWORK))
     }
 }

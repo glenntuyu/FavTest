@@ -2,6 +2,7 @@ package com.fav.favtest.domain
 
 import com.fav.favtest.data.model.UserDataView
 import com.fav.favtest.data.repository.FavoriteUserRepository
+import com.fav.favtest.util.toRoomQuery
 import javax.inject.Inject
 
 /**
@@ -12,6 +13,6 @@ class GetFavoriteUserListUseCase @Inject constructor(
 ): UseCase<List<UserDataView>, String>() {
 
     override suspend fun executeOnBackground(param: String): List<UserDataView> {
-        return favoriteUserRepository.getFavoriteUserList(param)
+        return favoriteUserRepository.getFavoriteUserList(param.toRoomQuery())
     }
 }

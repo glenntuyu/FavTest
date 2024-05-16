@@ -17,3 +17,11 @@ internal inline fun <reified T> Any?.shouldBeInstanceOf() {
         throw AssertionError("$actualClassName should be instance of $expectedClassName")
     }
 }
+
+internal fun <A, E> List<A>.listShouldBe(expectedList: List<E>, compare: (A, E) -> Unit) {
+    assert(size == expectedList.size) {
+        "Size should be equal. Actual size = $size, Expected size: ${expectedList.size}."
+    }
+
+    expectedList.forEachIndexed { index, t -> compare(this[index], t) }
+}
