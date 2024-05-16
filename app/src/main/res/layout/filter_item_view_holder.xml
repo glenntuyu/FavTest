@@ -9,7 +9,7 @@
         android:background="?attr/selectableItemBackground">
 
         <androidx.appcompat.widget.AppCompatTextView
-            style="@style/TextAppearance.TextBody2"
+            style="@style/TextAppearance.TextBody"
             android:id="@+id/filter_item_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -6,8 +6,8 @@ package com.fav.favtest.util
 object Constant {
     const val ARGS_QUERY = "query"
     const val DEFAULT_QUERY = "qwe"
-    const val FAVORITE_USERS: String = "Favorite Users"
-    const val ALL_USERS: String = "All Users"
+    const val FAVORITE_USER: String = "Favorite User"
+    const val ALL_USER: String = "All User"
     const val FAVORITE: String = "favorite"
     const val ALL: String = "all"
     const val LAST_QUERY_SCROLLED: String = "last_query_scrolled"

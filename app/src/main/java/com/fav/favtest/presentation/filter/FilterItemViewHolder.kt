@@ -8,8 +8,8 @@ import com.fav.favtest.R
 import com.fav.favtest.databinding.FilterItemViewHolderBinding
 import com.fav.favtest.util.Constant.ALL
 import com.fav.favtest.util.Constant.FAVORITE
-import com.fav.favtest.util.Constant.ALL_USERS
-import com.fav.favtest.util.Constant.FAVORITE_USERS
+import com.fav.favtest.util.Constant.ALL_USER
+import com.fav.favtest.util.Constant.FAVORITE_USER
 
 /**
  * Created by glenntuyu on 26/05/2022.
@@ -32,15 +32,16 @@ class FilterItemViewHolder(
 
     private fun getCurrentType(currentFilter: String): String {
         return when(currentFilter) {
-            ALL -> ALL_USERS
-            FAVORITE -> FAVORITE_USERS
+            ALL -> ALL_USER
+            FAVORITE -> FAVORITE_USER
             else -> ""
         }
     }
 
     private fun setTextColor(text: String, currentType: String) {
         if (text == currentType) {
-            binding.filterItemText.setTextColor(ContextCompat.getColor(binding.root.context, R.color.teal_200))
+            binding.filterItemText.setTextColor(ContextCompat.getColor(binding.root.context, R.color.blue_600))
+            binding.filterItemLayout.isEnabled = false
         }
     }
 

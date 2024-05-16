@@ -2,8 +2,8 @@ package com.fav.favtest.presentation.filter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.fav.favtest.util.Constant.ALL_USERS
-import com.fav.favtest.util.Constant.FAVORITE_USERS
+import com.fav.favtest.util.Constant.ALL_USER
+import com.fav.favtest.util.Constant.FAVORITE_USER
 
 /**
  * Created by glenntuyu on 15/05/2024.
@@ -15,8 +15,8 @@ class FilterBottomSheetAdapter(
     private var currentFilter: String = ""
 
     private val filterList = listOf(
-        ALL_USERS,
-        FAVORITE_USERS,
+        ALL_USER,
+        FAVORITE_USER,
     )
 
     fun setCurrentFilter(filter: String) {

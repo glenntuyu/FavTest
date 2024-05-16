@@ -72,7 +72,7 @@ class UserDetailFragment : Fragment(), MenuProvider {
     }
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menu.findItem(R.id.filter_dest).setVisible(false)
+
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

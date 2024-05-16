@@ -24,16 +24,18 @@ import com.fav.favtest.R
 import com.fav.favtest.data.model.GithubUserModel
 import com.fav.favtest.data.model.UserDataView
 import com.fav.favtest.databinding.FragmentSearchBinding
+import com.fav.favtest.presentation.FilterListener
 import com.fav.favtest.presentation.search.intent.SearchIntent
 import com.fav.favtest.presentation.search.state.SearchState
 import com.fav.favtest.presentation.view.UserCardListener
+import com.fav.favtest.util.Constant
 import com.fav.favtest.util.TimerUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), UserCardListener {
+class SearchFragment : Fragment(), UserCardListener, FilterListener {
 
     private var viewBinding: FragmentSearchBinding? = null
     private val viewModel: SearchViewModel by viewModels()
@@ -50,6 +52,7 @@ class SearchFragment : Fragment(), UserCardListener {
         super.onViewCreated(view, savedInstanceState)
 
         handleArgs()
+        initViewBindingListener()
         observeViewModel()
         prepareView()
         bindState()
@@ -59,6 +62,10 @@ class SearchFragment : Fragment(), UserCardListener {
     private fun handleArgs() {
         val safeArgs: SearchFragmentArgs by navArgs()
         viewModel.setQuery(safeArgs.query)
+    }
+
+    private fun initViewBindingListener() {
+        viewBinding?.listener = this
     }
 
     private fun observeViewModel() {
@@ -273,5 +280,10 @@ class SearchFragment : Fragment(), UserCardListener {
 
     private fun checkFavorite(data: GithubUserModel) {
         viewModel.checkFavorite(data)
+    }
+
+    override fun onFilterClicked() {
+        val action = SearchFragmentDirections.moveToFilter(Constant.ALL)
+        findNavController().navigate(action)
     }
 }

@@ -15,7 +15,9 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.fav.favtest.R
 import com.fav.favtest.databinding.FragmentFavoriteBinding
+import com.fav.favtest.presentation.FilterListener
 import com.fav.favtest.presentation.favorite.view.FavoriteUserCardListener
+import com.fav.favtest.util.Constant
 import com.fav.favtest.util.TimerUtil
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Created by glenntuyu on 15/05/2024.
  */
 @AndroidEntryPoint
-class FavoriteFragment : Fragment(), FavoriteUserCardListener {
+class FavoriteFragment : Fragment(), FavoriteUserCardListener, FilterListener {
 
     private var viewBinding: FragmentFavoriteBinding? = null
     private val viewModel: FavoriteViewModel by viewModels()
@@ -41,10 +43,15 @@ class FavoriteFragment : Fragment(), FavoriteUserCardListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initViewBindingListener()
         hideBackButton()
         observeViewModel()
         prepareView()
         getFavoriteUserList()
+    }
+
+    private fun initViewBindingListener() {
+        viewBinding?.listener = this
     }
 
     private fun hideBackButton() {
@@ -122,6 +129,11 @@ class FavoriteFragment : Fragment(), FavoriteUserCardListener {
 
     override fun onFavoriteUserCardClicked(username: String) {
         val action = FavoriteFragmentDirections.moveToUserDetail(username)
+        findNavController().navigate(action)
+    }
+
+    override fun onFilterClicked() {
+        val action = FavoriteFragmentDirections.moveToFilter(Constant.FAVORITE)
         findNavController().navigate(action)
     }
 }

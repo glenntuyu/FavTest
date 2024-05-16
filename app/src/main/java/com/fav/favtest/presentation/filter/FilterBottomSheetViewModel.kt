@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.fav.favtest.util.Constant.ALL
 import com.fav.favtest.util.Constant.DEFAULT_QUERY
 import com.fav.favtest.util.Constant.FAVORITE
-import com.fav.favtest.util.Constant.ALL_USERS
-import com.fav.favtest.util.Constant.FAVORITE_USERS
+import com.fav.favtest.util.Constant.ALL_USER
+import com.fav.favtest.util.Constant.FAVORITE_USER
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -25,9 +25,9 @@ class FilterBottomSheetViewModel @Inject constructor(): ViewModel() {
         get() = filterMutableLiveData
 
     fun getFilterType(text: String) {
-        if (text == FAVORITE_USERS) {
+        if (text == FAVORITE_USER) {
             filterMutableLiveData.value = FAVORITE
-        } else if (text == ALL_USERS) {
+        } else if (text == ALL_USER) {
             filterMutableLiveData.value = ALL
         }
     }

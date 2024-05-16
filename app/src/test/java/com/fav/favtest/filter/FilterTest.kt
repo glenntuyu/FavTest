@@ -3,9 +3,9 @@ package com.fav.favtest.filter
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.fav.favtest.presentation.filter.FilterBottomSheetViewModel
 import com.fav.favtest.util.Constant.ALL
-import com.fav.favtest.util.Constant.ALL_USERS
+import com.fav.favtest.util.Constant.ALL_USER
 import com.fav.favtest.util.Constant.FAVORITE
-import com.fav.favtest.util.Constant.FAVORITE_USERS
+import com.fav.favtest.util.Constant.FAVORITE_USER
 import com.fav.favtest.utils.shouldBe
 import org.junit.Before
 import org.junit.Rule
@@ -28,7 +28,7 @@ class FilterTest {
 
     @Test
     fun `Test filter All Users`() {
-        `When view call getFilterType`(ALL_USERS)
+        `When view call getFilterType`(ALL_USER)
         `Then assert filterType is all`()
     }
 
@@ -43,7 +43,7 @@ class FilterTest {
 
     @Test
     fun `Test filter Favorite Users`() {
-        `When view call getFilterType`(FAVORITE_USERS)
+        `When view call getFilterType`(FAVORITE_USER)
         `Then assert filterType is favorite`()
     }
 

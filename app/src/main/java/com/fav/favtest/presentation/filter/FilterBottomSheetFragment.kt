@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fav.favtest.R
@@ -41,8 +42,14 @@ class FilterBottomSheetFragment: BottomSheetDialogFragment(), FilterBottomSheetL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        handleArgs()
         initRecyclerView()
         observeViewModel()
+    }
+
+    private fun handleArgs() {
+        val safeArgs: FilterBottomSheetFragmentArgs by navArgs()
+        viewModel.setCurrentFilter(safeArgs.currentFilter)
     }
 
     private fun initRecyclerView() {
